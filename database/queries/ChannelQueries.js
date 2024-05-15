@@ -1,4 +1,4 @@
-const database = require("../db");
+const database = require('../db');
 const db = database.initDatabase();
 
 const create_Channel = async (name, description, userId) => {

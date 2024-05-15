@@ -1,8 +1,8 @@
-const express = require("express");
-const database = require("./database/db");
-const UsersRoutes = require("./routes/UsersRoutes");
-const MessagesRoutes = require("./routes/MessagesRoutes");
-const ChannelsRoutes = require("./routes/ChannelsRoutes");
+const express = require('express');
+const database = require('./database/db');
+const UsersRoutes = require('./routes/UsersRoutes');
+const MessagesRoutes = require('./routes/MessagesRoutes');
+const ChannelsRoutes = require('./routes/ChannelsRoutes');
 
 const app = express();
 app.use(express.json());
@@ -15,6 +15,6 @@ app.listen(PORT, () => {
   console.log(`Server listening on PORT ${PORT}`);
 });
 
-app.use("/users", UsersRoutes);
-app.use("/messages", MessagesRoutes);
-app.use("/channels", ChannelsRoutes);
+app.use('/users', UsersRoutes);
+app.use('/messages', MessagesRoutes);
+app.use('/channels', ChannelsRoutes);
