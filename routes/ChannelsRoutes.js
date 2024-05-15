@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const channelsService = require('../services/ChannelsService');
+const { postMessage } = require('../services/MessagesService');
 
 router.get('/', async (req, res) => {
   try {
@@ -9,7 +10,7 @@ router.get('/', async (req, res) => {
     res.json(channels);
   } catch (error) {
     console.log(error);
-    res.status(404).send('Internal server error');
+    res.status(500).send('Internal server error');
   }
 });
 
@@ -21,7 +22,7 @@ router.put('/', async (req, res) => {
     res.send('Channel successfully updated');
   } catch (error) {
     console.log(error);
-    res.status(404).send('Internal server error');
+    res.status(500).send('Internal server error');
   }
 });
 
@@ -33,7 +34,7 @@ router.post('/', async (req, res) => {
     res.send('Channel successfully created');
   } catch (error) {
     console.log(error);
-    res.status(404).send('Internal server error');
+    res.status(500).send('Internal server error');
   }
 });
 
@@ -45,7 +46,7 @@ router.delete('/', async (req, res) => {
     res.send('Channel successfully deleted');
   } catch (error) {
     console.log(error);
-    res.status(404).send('Internal server error');
+    res.status(500).send('Internal server error');
   }
 });
 
@@ -58,7 +59,7 @@ router.post('/:id/subcribe', async (req, res) => {
     res.send('Successfully subscribed to the channel');
   } catch (error) {
     console.log(error);
-    res.status(404).send('Internal server error');
+    res.status(500).send('Internal server error');
   }
 });
 
@@ -70,7 +71,7 @@ router.get('/:id/subscribers', async (req, res) => {
     res.json(channelUsers);
   } catch (error) {
     console.log(error);
-    res.status(404).send('Internal server error');
+    res.status(500).send('Internal server error');
   }
 });
 
@@ -82,7 +83,24 @@ router.get('/:id/messages', async (req, res) => {
     res.json(messages);
   } catch (error) {
     console.log(error);
-    res.status(404).send('Internal server error');
+    res.status(500).send('Internal server error');
+  }
+});
+router.post('/:id/messages', async (req, res) => {
+  const { id } = req.params;
+  const message = req.body;
+
+  const messageWithChannelId = {
+    ...message,
+    channels: [id],
+  };
+
+  try {
+    const createdMessage = await postMessage(messageWithChannelId);
+
+    res.json(createdMessage);
+  } catch (error) {
+    res.status(500).send('Internal server error');
   }
 });
 

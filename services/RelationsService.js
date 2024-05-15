@@ -1,4 +1,7 @@
-const createRelationUsersChannelsTable = (userId, channelId) => {
+const database = require('../database/db');
+const db = database.initDatabase();
+
+const addUsersChannelsTable = (userId, channelId) => {
   return new Promise((resolve, reject) => {
     db.run(
       'INSERT INTO usersChannels (User_Id, Channel_Id) VALUES (?, ?)',
@@ -11,7 +14,7 @@ const createRelationUsersChannelsTable = (userId, channelId) => {
   });
 };
 
-const createRelationMessagesChannelsTable = (messageId, channelId) => {
+const addMessagesChannels = (messageId, channelId) => {
   return new Promise((resolve, reject) => {
     db.run(
       'INSERT INTO messagesChannels (Message_Id, Channel_Id) VALUES (?, ?)',
@@ -25,6 +28,6 @@ const createRelationMessagesChannelsTable = (messageId, channelId) => {
 };
 
 module.exports = {
-  createRelationUsersChannelsTable,
-  createRelationMessagesChannelsTable,
+  addUsersChannelsTable,
+  addMessagesChannels,
 };
