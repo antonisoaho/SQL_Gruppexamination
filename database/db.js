@@ -1,4 +1,7 @@
-const sqlite3 = require("sqlite3").verbose();
+const tableDefinitions = require('./definitions/tableDefinitions');
+const viewDefinitions = require('./definitions/viewDefinitions');
+
+const sqlite3 = require('sqlite3').verbose();
 
 const initDatabase = () => {
   const db = new sqlite3.Database("./database/database.db", (error) => {
@@ -7,23 +10,27 @@ const initDatabase = () => {
     return db;
   });
 
-  const usersTable =
-    "CREATE TABLE IF NOT EXISTS users (Id INTEGER PRIMARY KEY, Name TEXT, Email TEXT);";
+  const {
+    usersTable,
+    channelsTable,
+    messagesTable,
+    messagesChannelsTable,
+    usersChannelsTable,
+  } = tableDefinitions;
 
-  const channelsTable =
-    "CREATE TABLE IF NOT EXISTS channels (Id INTEGER PRIMARY KEY, Name TEXT, Description TEXT, Owner_Id INTEGER, FOREIGN KEY (Owner_Id) REFERENCES users(Id));";
+  const {
+    subscribersView,
+    messagesFromUser,
+    messagesForChannel,
+    channelOwnedByUser,
+  } = viewDefinitions;
 
-  const messagesTable =
-    "CREATE TABLE IF NOT EXISTS messages(Id INTEGER PRIMARY KEY, Message TEXT, Created_At DATETIME, User_Id INTEGER, FOREIGN KEY (User_Id) REFERENCES users(Id));";
-
-  const messagesChannelsTable =
-    "CREATE TABLE IF NOT EXISTS messagesChannels(Message_Id INTEGER, Channel_Id INTEGER, FOREIGN KEY (Message_Id) REFERENCES messages(Id), FOREIGN KEY (Channel_Id) REFERENCES channels(Id))";
-
-  db.serialize(() => {
+  const createTables = () => {
     db.run(usersTable)
       .run(channelsTable)
       .run(messagesTable)
-      .run(messagesChannelsTable, (error) => {
+      .run(messagesChannelsTable)
+      .run(usersChannelsTable, (error) => {
         if (error) console.error(error);
       });
   });
@@ -31,6 +38,4 @@ const initDatabase = () => {
   return db;
 };
 
-module.exports = {
-  initDatabase,
-};
+module.exports = initDatabase;
