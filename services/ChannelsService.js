@@ -9,6 +9,7 @@ const createChannel = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(404).send('Internal server error');
+    res.status(404).send('Internal server error');
   }
 };
 
@@ -19,6 +20,7 @@ const getAllChannels = async (req, res) => {
     res.json(channels);
   } catch (error) {
     console.log(error);
+    res.status(404).send('Internal server error');
     res.status(404).send('Internal server error');
   }
 };
@@ -31,6 +33,7 @@ const updateChannel = async (req, res) => {
     res.send('Channel successfully updated');
   } catch (error) {
     console.log(error);
+    res.status(404).send('Internal server error');
     res.status(404).send('Internal server error');
   }
 };
@@ -55,6 +58,7 @@ const getAllChannelMessages = async (req, res) => {
     res.json(messages);
   } catch (error) {
     console.log(error);
+    res.status(404).send('Internal server error');
     res.status(404).send('Internal server error');
   }
 };
