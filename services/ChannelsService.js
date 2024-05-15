@@ -52,14 +52,23 @@ const updateChannel = async (name, description, channelId) => {
 
 const deleteChannel = async (channelId) => {
   return new Promise((resolve, reject) => {
-    db.run(`DELETE FROM channels WHERE Id = ?`, [channelId], function (error) {
-      if (error) {
-        console.error(error);
-        reject(error);
-      } else {
-        console.log(`Channel deleted`);
+    db.run(`DELETE FROM channels WHERE Id = ?`, [channelId], (error) => {
+      if (error) reject(error);
+
+      const messageChannel =
+        'DELETE FROM messagesChannels WHERE Channel_Id = ?';
+      const userChannel = 'DELETE FROM usersChannels WHERE Channel_Id = ?';
+
+      db.serialize(() => {
+        db.run(messageChannel, [channelId], (error) => {
+          if (error) reject(error);
+        });
+        db.run(userChannel, [channelId], (error) => {
+          if (error) reject(error);
+        });
+
         resolve();
-      }
+      });
     });
   });
 };
