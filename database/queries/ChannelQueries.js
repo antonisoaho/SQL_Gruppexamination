@@ -1,5 +1,5 @@
-const database = require("../db");
-const db = database.initDatabase();
+const database = require('../db');
+const db = database.initDatabase().db;
 
 const create_Channel = async (name, description, userId) => {
   return new Promise((resolve, reject) => {
@@ -63,9 +63,28 @@ const delete_Channel = async (channelId) => {
     });
   });
 };
+
+const getAll_ChannelMessages = async (channelId) => {
+  return new Promise((resolve, reject) => {
+    db.all(
+      `SELECT messages.* FROM messages JOIN messagesChannels ON messages.Id = messagesChannels.Message_Id WHERE messagesChannels.Channel_Id = ?`
+    ),
+      [channelId],
+      function (error, rows) {
+        if (error) {
+          console.error(error);
+          reject(error);
+        } else {
+          resolve(rows);
+        }
+      };
+  });
+};
+
 module.exports = {
   create_Channel,
   getAll_Channels,
   update_Channel,
   delete_Channel,
+  getAll_ChannelMessages,
 };
