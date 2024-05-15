@@ -31,27 +31,6 @@ const initDatabase = () => {
   return db;
 };
 
-// Create Channel to db
-
-// const create_Channel = async (name, description, userId) => {
-//   return new Promise((resolve, reject) => {
-//     db.run(
-//       `INSERT INTO channels (Name, Description, Owner_id) VALUES (?,?,?)`,
-//       [name, description, userId],
-//       function (error) {
-//         if (error) {
-//           console.log(error);
-//           reject(error);
-//         } else {
-//           console.log(`Created channel ${name} successfully`);
-//           resolve();
-//         }
-//       }
-//     );
-//   });
-// };
-
 module.exports = {
   initDatabase,
-  // create_Channel
 };
