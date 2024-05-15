@@ -70,10 +70,38 @@ const deleteUser = (userId) => {
   });
 };
 
+const getChannelAuthorById = (userId) => {
+  return new Promise((resolve, reject) => {
+    const query = 'SELECT * FROM channels WHERE Owner_Id = ?';
+    db.all(query, [userId], (error, rows) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
+};
+const getSubscriptions = (userId) => {
+  return new Promise((resolve, reject) => {
+    const query =
+      'SELECT * FROM channels INNER JOIN usersChannels ON usersChannels.Channel_Id = channels.Id WHERE usersChannels.User_Id = ?';
+    db.all(query, [userId], (error, rows) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
+};
+
 module.exports = {
   getAllUsers,
   getUserById,
   createUser,
   updateUser,
   deleteUser,
+  getChannelAuthorById,
+  getSubscriptions,
 };
