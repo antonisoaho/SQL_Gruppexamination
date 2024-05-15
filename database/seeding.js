@@ -1,4 +1,4 @@
-const { create_Channel } = require('./queries/ChannelQueries');
+const { createChannel } = require('../services/ChannelsService');
 const { createUser } = require('../services/UsersService');
 const database = require('./db');
 
@@ -62,7 +62,7 @@ const initSeed = async () => {
     }
 
     for (const channel of channels) {
-      await create_Channel(channel.Name, channel.Description, channel.Owner_Id);
+      await createChannel(channel.Name, channel.Description, channel.Owner_Id);
     }
 
     await db.run('COMMIT;');
