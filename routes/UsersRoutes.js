@@ -81,9 +81,17 @@ router.get('/:id/subscriptions', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-// se alla meddelanden gjorda av användaren, asc och desc
-// router.get("./users/:id/messages?order= asc desc   ", async (req, res) => {
 
-// })
+// se alla meddelanden gjorda av användaren, asc och desc
+router.get('/:id/messages', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    let order = req.query.order;
+    let messages = await UserService.getMessagesFromUser(userId, order);
+    res.json(messages);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 module.exports = router;

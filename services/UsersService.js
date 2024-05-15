@@ -96,6 +96,24 @@ const getSubscriptions = (userId) => {
   });
 };
 
+const getMessagesFromUser = (userId, order) => {
+  let query =
+    'SELECT * FROM users INNER JOIN messages ON users.id = messages.User_Id WHERE users.Id = ?';
+
+  if (order && (order == 'ASC' || order == 'DESC'))
+    query += ` ORDER BY messages.Created_At ${order}`;
+
+  return new Promise((resolve, reject) => {
+    db.all(query, [userId], (error, rows) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
+};
+
 module.exports = {
   getAllUsers,
   getUserById,
@@ -104,4 +122,5 @@ module.exports = {
   deleteUser,
   getChannelAuthorById,
   getSubscriptions,
+  getMessagesFromUser,
 };
