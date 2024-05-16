@@ -43,8 +43,12 @@ router.post('/', async (req, res) => {
   const { name, description, userId } = req.body;
 
   try {
-    await channelsService.createChannel(name, description, userId);
-    res.send('Channel successfully created');
+    const newChannel = await channelsService.createChannel(
+      name,
+      description,
+      userId
+    );
+    res.json(newChannel);
   } catch (error) {
     console.log(error);
     res.status(500).send('Internal server error');
