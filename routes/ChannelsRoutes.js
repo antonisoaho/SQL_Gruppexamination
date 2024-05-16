@@ -67,7 +67,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 // Endpoint to subscribe to a channel
-router.post('/:id/subcribe', async (req, res) => {
+router.post('/:id/subscribe', async (req, res) => {
   const { userId } = req.body;
   const { id: channelId } = req.params;
 
