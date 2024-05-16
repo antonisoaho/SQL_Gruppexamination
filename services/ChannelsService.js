@@ -1,6 +1,7 @@
 const database = require('../database/db');
 const db = database.initDatabase();
 
+// Function to create channel
 const createChannel = async (name, description, userId) => {
   return new Promise((resolve, reject) => {
     db.run(
@@ -18,7 +19,7 @@ const createChannel = async (name, description, userId) => {
     );
   });
 };
-
+// Function get all channels
 const getAllChannels = async () => {
   return new Promise((resolve, reject) => {
     db.all(`SELECT * FROM channels`, [], (error, channels) => {
@@ -31,7 +32,24 @@ const getAllChannels = async () => {
     });
   });
 };
-
+// Function get a specific channel
+const getSpecificChannelById = async (channelId) => {
+  return new Promise((resolve, reject) => {
+    db.get(
+      `SELECT * FROM channels WHERE Id = ?`,
+      [channelId],
+      function (error, channel) {
+        if (error) {
+          console.error(error);
+          reject(error);
+        } else {
+          resolve(channel);
+        }
+      }
+    );
+  });
+};
+// Function to update channel
 const updateChannel = async (name, description, channelId) => {
   return new Promise((resolve, reject) => {
     db.run(
@@ -49,7 +67,7 @@ const updateChannel = async (name, description, channelId) => {
     );
   });
 };
-
+// Function to delete channel
 const deleteChannel = async (channelId) => {
   return new Promise((resolve, reject) => {
     db.run(`DELETE FROM channels WHERE Id = ?`, [channelId], (error) => {
@@ -72,7 +90,7 @@ const deleteChannel = async (channelId) => {
     });
   });
 };
-
+// Function to get all channel messages
 const getAllChannelMessages = async (channelId) => {
   return new Promise((resolve, reject) => {
     db.all(
@@ -89,7 +107,7 @@ const getAllChannelMessages = async (channelId) => {
     );
   });
 };
-
+// Function to get all users of a channel
 const getAllChannelUsers = async (channelId) => {
   return new Promise((resolve, reject) => {
     db.all(
@@ -106,7 +124,7 @@ const getAllChannelUsers = async (channelId) => {
     );
   });
 };
-
+// Function to subscribe to channel
 const subscribeToChannel = async (userId, channelId) => {
   return new Promise((resolve, reject) => {
     db.run(
@@ -132,4 +150,5 @@ module.exports = {
   getAllChannelMessages,
   getAllChannelUsers,
   subscribeToChannel,
+  getSpecificChannelById,
 };

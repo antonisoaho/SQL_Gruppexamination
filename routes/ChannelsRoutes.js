@@ -3,19 +3,32 @@ const router = express.Router();
 const channelsService = require('../services/ChannelsService');
 const { postMessage } = require('../services/MessagesService');
 
+// Endpoint to get all channels
 router.get('/', async (req, res) => {
   try {
     const channels = await channelsService.getAllChannels();
-    console.log(channels);
     res.json(channels);
   } catch (error) {
     console.log(error);
     res.status(500).send('Internal server error');
   }
 });
+// Endpoint to get specific channel
+router.get('/:id', async (req, res) => {
+  const { id: channelId } = req.params;
 
-router.put('/', async (req, res) => {
-  const { name, description, channelId } = req.body;
+  try {
+    const channel = await channelsService.getSpecificChannelById(channelId);
+    res.json(channel);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error');
+  }
+});
+// Endpoint to update channel
+router.put('/:id', async (req, res) => {
+  const { name, description } = req.body;
+  const { id: channelId } = req.params;
 
   try {
     await channelsService.updateChannel(name, description, channelId);
@@ -25,7 +38,7 @@ router.put('/', async (req, res) => {
     res.status(500).send('Internal server error');
   }
 });
-
+// Endpoint to create a channel
 router.post('/', async (req, res) => {
   const { name, description, userId } = req.body;
 
@@ -37,9 +50,9 @@ router.post('/', async (req, res) => {
     res.status(500).send('Internal server error');
   }
 });
-
-router.delete('/', async (req, res) => {
-  const { channelId } = req.body;
+// Endpoint to delete a channel
+router.delete('/:id', async (req, res) => {
+  const { id: channelId } = req.params;
 
   try {
     await channelsService.deleteChannel(channelId);
@@ -49,7 +62,7 @@ router.delete('/', async (req, res) => {
     res.status(500).send('Internal server error');
   }
 });
-
+// Endpoint to subscribe to a channel
 router.post('/:id/subcribe', async (req, res) => {
   const { userId } = req.body;
   const { id: channelId } = req.params;
@@ -62,7 +75,7 @@ router.post('/:id/subcribe', async (req, res) => {
     res.status(500).send('Internal server error');
   }
 });
-
+// Endpoint to get all users in a channel
 router.get('/:id/subscribers', async (req, res) => {
   const { id: channelId } = req.params;
 
@@ -74,7 +87,7 @@ router.get('/:id/subscribers', async (req, res) => {
     res.status(500).send('Internal server error');
   }
 });
-
+// Endpoint to get all messages in a channel
 router.get('/:id/messages', async (req, res) => {
   const { id: channelId } = req.params;
 
@@ -86,6 +99,7 @@ router.get('/:id/messages', async (req, res) => {
     res.status(500).send('Internal server error');
   }
 });
+// Endpoint to post a message in a channel
 router.post('/:id/messages', async (req, res) => {
   const { id } = req.params;
   const message = req.body;
