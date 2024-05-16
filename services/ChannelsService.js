@@ -12,8 +12,18 @@ const createChannel = async (name, description, userId) => {
           console.log(error);
           reject(error);
         } else {
-          console.log(`Created channel ${name} successfully`);
-          resolve();
+          const channelId = this.lastID;
+          db.get(
+            `Select * FROM channels WHERE Id = ?`,
+            [channelId],
+            function (error, row) {
+              if (error) {
+                reject(error);
+              } else {
+                resolve(row);
+              }
+            }
+          );
         }
       }
     );
