@@ -70,8 +70,17 @@ const updateChannel = async (name, description, channelId) => {
           console.error(error);
           reject(error);
         } else {
-          console.log(`Channel successfully updated`);
-          resolve();
+          db.get(
+            `Select * FROM channels WHERE Id = ?`,
+            [channelId],
+            function (error, row) {
+              if (error) {
+                reject(error);
+              } else {
+                resolve(row);
+              }
+            }
+          );
         }
       }
     );
