@@ -31,8 +31,12 @@ router.put('/:id', async (req, res) => {
   const { id: channelId } = req.params;
 
   try {
-    await channelsService.updateChannel(name, description, channelId);
-    res.send('Channel successfully updated');
+    const updatedChannel = await channelsService.updateChannel(
+      name,
+      description,
+      channelId
+    );
+    res.send(updatedChannel);
   } catch (error) {
     console.log(error);
     res.status(500).send('Internal server error');
