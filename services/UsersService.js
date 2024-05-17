@@ -70,6 +70,7 @@ const deleteUser = (userId) => {
   });
 };
 
+// Funktion för att hitta kanaler ägda av användare
 const getChannelAuthorById = (userId) => {
   return new Promise((resolve, reject) => {
     const query = 'SELECT * FROM channels WHERE Owner_Id = ?';
@@ -82,6 +83,8 @@ const getChannelAuthorById = (userId) => {
     });
   });
 };
+
+// Funktion för att hitta subbade kanaler på användare
 const getSubscriptions = (userId) => {
   return new Promise((resolve, reject) => {
     const query =
@@ -96,6 +99,7 @@ const getSubscriptions = (userId) => {
   });
 };
 
+// Funktion för att hitta alla meddelanden på användare
 const getMessagesFromUser = (userId, order) => {
   let query =
     'SELECT * FROM users INNER JOIN messages ON users.id = messages.User_Id WHERE users.Id = ?';

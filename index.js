@@ -7,7 +7,7 @@ const ChannelsRoutes = require('./routes/ChannelsRoutes');
 const app = express();
 app.use(express.json());
 
-const db = database.initDatabase();
+database.initDatabase();
 
 const PORT = 3000;
 

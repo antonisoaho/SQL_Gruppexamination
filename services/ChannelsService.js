@@ -9,7 +9,6 @@ const createChannel = async (name, description, userId) => {
       [name, description, userId],
       function (error) {
         if (error) {
-          console.log(error);
           reject(error);
         } else {
           const channelId = this.lastID;
@@ -34,7 +33,6 @@ const getAllChannels = async () => {
   return new Promise((resolve, reject) => {
     db.all(`SELECT * FROM channels`, [], (error, channels) => {
       if (error) {
-        console.error(error);
         reject(error);
       } else {
         resolve(channels);
@@ -50,7 +48,6 @@ const getSpecificChannelById = async (channelId) => {
       [channelId],
       function (error, channel) {
         if (error) {
-          console.error(error);
           reject(error);
         } else {
           resolve(channel);
@@ -67,7 +64,6 @@ const updateChannel = async (name, description, channelId) => {
       [name, description, channelId],
       function (error) {
         if (error) {
-          console.error(error);
           reject(error);
         } else {
           db.get(
@@ -117,7 +113,6 @@ const getAllChannelMessages = async (channelId) => {
       [channelId],
       function (error, rows) {
         if (error) {
-          console.error(error);
           reject(error);
         } else {
           resolve(rows);
@@ -134,7 +129,6 @@ const getAllChannelUsers = async (channelId) => {
       [channelId],
       function (error, rows) {
         if (error) {
-          console.error(error);
           reject(error);
         } else {
           resolve(rows);
@@ -151,7 +145,6 @@ const subscribeToChannel = async (userId, channelId) => {
       [userId, channelId],
       function (error) {
         if (error) {
-          console.error(error);
           reject(error);
         } else {
           resolve();

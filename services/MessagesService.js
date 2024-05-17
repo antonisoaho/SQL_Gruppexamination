@@ -2,6 +2,7 @@ const database = require('../database/db');
 const RelationsService = require('./RelationsService');
 const db = database.initDatabase();
 
+// Hämta meddelanden
 const getMessages = async (id, order) => {
   let query = 'SELECT * FROM messages';
 
@@ -18,6 +19,7 @@ const getMessages = async (id, order) => {
   });
 };
 
+//Skapa meddelande - Se till att den hamnar i many-many tabell och att man är subscribad till kanalen man vill posta i
 const postMessage = async (message) => {
   const placeholders = message.channels.map(() => '?').join(',');
   const query = `
@@ -112,7 +114,7 @@ const postMessage = async (message) => {
     throw error;
   }
 };
-
+// Funktion för att uppdatera meddelande
 const updateMessage = async (id, message) => {
   return new Promise((resolve, reject) => {
     const query = 'UPDATE messages SET Message = ? WHERE Id = ?';
@@ -128,7 +130,7 @@ const updateMessage = async (id, message) => {
     });
   });
 };
-
+// Funktion för att ta bort meddelande
 const deleteMessage = async (id) => {
   return new Promise((resolve, reject) => {
     const query = 'DELETE FROM messages WHERE Id = ?';
@@ -145,11 +147,13 @@ const deleteMessage = async (id) => {
   });
 };
 
+// Funktion för att ta bort felaktiga meddelanden
 const getFaultyMessages = async (userId, channelId) => {
   return new Promise((resolve, reject) => {
     const query = `SELECT m.Id, mc.Message_Id, mc.Channel_Id
       FROM messages m
-      LEFT JOIN messagesChannels mc ON m.Id = mc.Message_Id`;
+      LEFT JOIN messagesChannels mc ON m.Id = mc.Message_Id
+      WHERE mc.Message_Id IS NULL OR mc.Channel_Id IS NULL`;
 
     db.all(query, (err, rows) => {
       console.log('err', err);

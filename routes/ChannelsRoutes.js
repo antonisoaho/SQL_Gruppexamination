@@ -9,7 +9,6 @@ router.get('/', async (req, res) => {
     const channels = await channelsService.getAllChannels();
     res.json(channels);
   } catch (error) {
-    console.log(error);
     res.status(500).send('Internal server error');
   }
 });
@@ -21,7 +20,6 @@ router.get('/:id', async (req, res) => {
     const channel = await channelsService.getSpecificChannelById(channelId);
     res.json(channel);
   } catch (error) {
-    console.log(error);
     res.status(500).send('Internal server error');
   }
 });
@@ -54,7 +52,6 @@ router.post('/', async (req, res) => {
     );
     res.json(newChannel);
   } catch (error) {
-    console.log(error);
     res.status(500).send('Internal server error');
   }
 });
@@ -66,7 +63,6 @@ router.delete('/:id', async (req, res) => {
     await channelsService.deleteChannel(channelId);
     res.send('Channel successfully deleted');
   } catch (error) {
-    console.log(error);
     res.status(500).send('Internal server error');
   }
 });
@@ -79,7 +75,6 @@ router.post('/:id/subscribe', async (req, res) => {
     await channelsService.subscribeToChannel(userId, channelId);
     res.send('Successfully subscribed to the channel');
   } catch (error) {
-    console.log(error);
     res.status(500).send('Internal server error');
   }
 });
@@ -91,7 +86,6 @@ router.get('/:id/subscribers', async (req, res) => {
     const channelUsers = await channelsService.getAllChannelUsers(channelId);
     res.json(channelUsers);
   } catch (error) {
-    console.log(error);
     res.status(500).send('Internal server error');
   }
 });
@@ -103,7 +97,6 @@ router.get('/:id/messages', async (req, res) => {
     const messages = await channelsService.getAllChannelMessages(channelId);
     res.json(messages);
   } catch (error) {
-    console.log(error);
     res.status(500).send('Internal server error');
   }
 });

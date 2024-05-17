@@ -37,9 +37,7 @@
 								{
 									"key": "Content-Type",
 									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
+									"description": ""
 								}
 							],
 							"cookie": [],
@@ -100,9 +98,7 @@
 								{
 									"key": "Content-Type",
 									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
+									"description": ""
 								}
 							],
 							"cookie": [],
@@ -171,9 +167,7 @@
 								{
 									"key": "Content-Type",
 									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
+									"description": ""
 								}
 							],
 							"cookie": [],
@@ -314,9 +308,7 @@
 								{
 									"key": "Content-Type",
 									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
+									"description": ""
 								}
 							],
 							"cookie": [],
@@ -367,9 +359,7 @@
 								{
 									"key": "Content-Type",
 									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
+									"description": ""
 								}
 							],
 							"cookie": [],
@@ -469,9 +459,7 @@
 								{
 									"key": "Content-Type",
 									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
+									"description": ""
 								}
 							],
 							"cookie": [],
@@ -488,7 +476,16 @@
 					"name": "Get all channels",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/channels",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels"
+							]
+						}
 					},
 					"response": [
 						{
@@ -511,9 +508,7 @@
 								{
 									"key": "Content-Type",
 									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
+									"description": ""
 								}
 							],
 							"cookie": [],
@@ -525,7 +520,24 @@
 					"name": "Get Channel",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/channels/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2",
+									"type": "string"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -573,7 +585,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1",
+									"value": "2",
 									"description": "ID on desired channel"
 								}
 							]
@@ -608,7 +620,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1",
+									"value": "2",
 									"description": "ID on desired channel"
 								}
 							]
@@ -653,9 +665,7 @@
 								{
 									"key": "Content-Type",
 									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
+									"description": ""
 								}
 							],
 							"cookie": [],
@@ -670,7 +680,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"name\",\r\n    \"description\": \"description\",\r\n    \"userId\": \"userId\"\r\n}",
+							"raw": "{\r\n    \"name\": \"name\",\r\n    \"description\": \"description\",\r\n    \"userId\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -793,19 +803,20 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/channels/:id/subcribe",
+							"raw": "{{baseUrl}}/channels/:id/subscribe",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"channels",
 								":id",
-								"subcribe"
+								"subscribe"
 							],
 							"variable": [
 								{
 									"key": "id",
 									"value": "2",
+									"type": "string",
 									"description": "ID on desired channel"
 								}
 							]
@@ -879,9 +890,7 @@
 								{
 									"key": "Content-Type",
 									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
+									"description": ""
 								}
 							],
 							"cookie": [],
@@ -915,7 +924,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "8",
+									"value": "1",
 									"description": "ID on desired message"
 								}
 							]
@@ -959,9 +968,7 @@
 								{
 									"key": "Content-Type",
 									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
+									"description": ""
 								}
 							],
 							"cookie": [],
@@ -976,7 +983,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"message\": \"message\",\r\n    \"user_id\": 1,\r\n    \"channels\": [1, 2, 3]\r\n}",
+							"raw": "{\r\n    \"message\": \"message\",\r\n    \"user_id\": 2,\r\n    \"channels\": [3]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1023,9 +1030,7 @@
 								{
 									"key": "Content-Type",
 									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
+									"description": ""
 								}
 							],
 							"cookie": [],
@@ -1050,7 +1055,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "9",
+									"value": "1",
 									"description": "ID on desired message to delete"
 								}
 							]
@@ -1085,9 +1090,7 @@
 								{
 									"key": "Content-Type",
 									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
+									"description": ""
 								}
 							],
 							"cookie": [],
@@ -1099,7 +1102,17 @@
 					"name": "Find faulty messages",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/messages/fault",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"messages",
+								"fault"
+							]
+						}
 					},
 					"response": []
 				}
