@@ -32,7 +32,7 @@ const getUserById = (userId) => {
 const createUser = (userData) => {
   return new Promise((resolve, reject) => {
     const query = 'INSERT INTO users (Name, Email) VALUES (?, ?)';
-    db.run(query, [userData.Name, userData.Email], function (error) {
+    db.run(query, [userData.name, userData.email], function (error) {
       if (error) {
         reject(error);
       } else {
